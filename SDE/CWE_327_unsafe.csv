@@ -1,0 +1,28 @@
+PHP_Code,is_vulnerable,Description
+"<?php
+//no_sanitizing
+//flaw
+ // Flaw
+$var = crypt(""password"", ""$1$rasmusle$"");
+?>",1,CWE_327__no_sanitizing__md5_crypt_function
+"<?php
+//no_sanitizing
+//flaw
+$var = str_rot13(""password"");
+?>",1,CWE_327__no_sanitizing__str_rot13
+"<?php
+//no_sanitizing
+//flaw
+$var = md5(""password"");
+?>",1,CWE_327__no_sanitizing__md5
+"<?php
+//no_sanitizing
+//flaw
+$var = sha1(""password"");
+?>",1,CWE_327__no_sanitizing__sha1
+"<?php
+//no_sanitizing
+//flaw
+ // Flaw
+$var = crypt(""password"", ""rl"");
+?>",1,CWE_327__no_sanitizing__des_crypt_function

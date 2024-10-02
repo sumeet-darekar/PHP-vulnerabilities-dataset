@@ -1,0 +1,22 @@
+PHP_Code,is_vulnerable,Description
+"<?php
+$password = “password”;
+$username = “username”;
+//flaw
+$conn = pg_pconnect(""dbname=publisher"");
+if (!$conn) {
+ echo ""An error occured.\n"";
+ exit;
+}
+$query = sprintf(""INSERT INTO users(name,pwd) VALUES('%s','%s');"",
+ pg_escape_string($username),
+ pg_escape_string($password));
+$result = pg_query($conn, $query);
+?>",1,CWE_311__no_encryption__store_in_database
+"<?php
+$password = “password”;
+$username = “username”;
+//flaw
+$data = array(""username"" => $username, ""password""=> $password);
+$var = setcookie(""userdata"", $data);
+?>",1,CWE_311__no_encryption__store_in_cookie

@@ -1,0 +1,337 @@
+PHP_Code,is_vulnerable
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input['realOne'];
+ }
+ public function __construct(){
+ $this->input = array();
+ $this->input['test']= 'safe' ;
+ $this->input['realOne']= $_GET['UserData'] ;
+ $this->input['trap']= 'safe' ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = system('ls', $retval);
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input['realOne'];
+ }
+ public function __construct(){
+ $this->input = array();
+ $this->input['test']= 'safe' ;
+ $this->input['realOne']= $_GET['UserData'] ;
+ $this->input['trap']= 'safe' ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$string = $_POST['UserData'] ;
+$tainted = unserialize($string);
+ 
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input[1];
+ }
+ public function __construct(){
+ $this->input = array();
+ $this->input[0]= 'safe' ;
+ $this->input[1]= $_GET['UserData'] ;
+ $this->input[2]= 'safe' ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$string = $_POST['UserData'] ;
+$tainted = unserialize($string);
+ 
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = shell_exec('cat /tmp/tainted.txt');
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input[1];
+ }
+ public function __construct(){
+ $this->input = array();
+ $this->input[0]= 'safe' ;
+ $this->input[1]= $_GET['UserData'] ;
+ $this->input[2]= 'safe' ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = system('ls', $retval);
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+class Input{
+ public function getInput(){
+ return $_GET['UserData'] ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = $_SESSION['UserData'];
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$handle = popen('/bin/cat /tmp/tainted.txt', 'r');
+$tainted = fread($handle, 4096);
+pclose($handle);
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = $_GET['UserData'];
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = $_POST['UserData'];
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = $_GET['UserData'];
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = shell_exec('cat /tmp/tainted.txt');
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input;
+ }
+ public function __construct(){
+ $this->input = $_GET['UserData'] ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = `cat /tmp/tainted.txt`;
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$handle = popen('/bin/cat /tmp/tainted.txt', 'r');
+$tainted = fread($handle, 4096);
+pclose($handle);
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = $_POST['UserData'];
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = $_SESSION['UserData'];
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$script = ""/tmp/tainted.php"";
+exec($script, $result, $return);
+$tainted = $result[0];
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$array = array();
+$array[] = 'safe' ;
+$array[] = $_GET['userData'] ;
+$array[] = 'safe' ;
+$tainted = $array[1] ;
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$descriptorspec = array(
+ 0 => array(""pipe"", ""r""),
+ 1 => array(""pipe"", ""w""),
+ 2 => array(""file"", ""/tmp/error-output.txt"", ""a"")
+ );
+$cwd = '/tmp';
+$process = proc_open('more /tmp/tainted.txt', $descriptorspec, $pipes, $cwd, NULL);
+if (is_resource($process)) {
+ fclose($pipes[0]);
+ $tainted = stream_get_contents($pipes[1]);
+ fclose($pipes[1]);
+ $return_value = proc_close($process);
+}
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$tainted = `cat /tmp/tainted.txt`;
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$array = array();
+$array[] = 'safe' ;
+$array[] = $_GET['userData'] ;
+$array[] = 'safe' ;
+$tainted = $array[1] ;
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input;
+ }
+ public function __construct(){
+ $this->input = $_GET['UserData'] ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$handle = @fopen(""/tmp/tainted.txt"", ""r"");
+if ($handle) {
+ if(($tainted = fgets($handle, 4096)) == false) {
+ $tainted = """";
+ }
+ fclose($handle);
+} else {
+ $tainted = """";
+}
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$script = ""/tmp/tainted.php"";
+exec($script, $result, $return);
+$tainted = $result[0];
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$handle = @fopen(""/tmp/tainted.txt"", ""r"");
+if ($handle) {
+ if(($tainted = fgets($handle, 4096)) == false) {
+ $tainted = """";
+ }
+ fclose($handle);
+} else {
+ $tainted = """";
+}
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+$descriptorspec = array(
+ 0 => array(""pipe"", ""r""),
+ 1 => array(""pipe"", ""w""),
+ 2 => array(""file"", ""/tmp/error-output.txt"", ""a"")
+ );
+$cwd = '/tmp';
+$process = proc_open('more /tmp/tainted.txt', $descriptorspec, $pipes, $cwd, NULL);
+if (is_resource($process)) {
+ fclose($pipes[0]);
+ $tainted = stream_get_contents($pipes[1]);
+ fclose($pipes[1]);
+ $return_value = proc_close($process);
+}
+$tainted = preg_replace('/\'/', '', $tainted);
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1
+"<?php
+class Input{
+ public function getInput(){
+ return $_GET['UserData'] ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+//no_sanitizing
+//flaw
+$var = fopen($tainted, ""r"");
+ ?>",1

@@ -1,0 +1,497 @@
+PHP_Code,is_vulnerable,Description
+"<?php
+$tainted = system('ls', $retval);
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__system__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$handle = @fopen(""/tmp/tainted.txt"", ""r"");
+if ($handle) {
+ if(($tainted = fgets($handle, 4096)) == false) {
+ $tainted = """";
+ }
+ fclose($handle);
+} else {
+ $tainted = """";
+}
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__fopen__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+$script = ""/tmp/tainted.php"";
+exec($script, $result, $return);
+$tainted = $result[0];
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__exec__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+$tainted = shell_exec('cat /tmp/tainted.txt');
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__shell_exec__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+$tainted = $_SESSION['UserData'];
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__SESSION__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+class Input{
+ public function getInput(){
+ return $_GET['UserData'] ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__object-directGet__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+$tainted = system('ls', $retval);
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__system__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input[1];
+ }
+ public function __construct(){
+ $this->input = array();
+ $this->input[0]= 'safe' ;
+ $this->input[1]= $_GET['UserData'] ;
+ $this->input[2]= 'safe' ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__object-Array__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$tainted = shell_exec('cat /tmp/tainted.txt');
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__shell_exec__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$string = $_POST['UserData'] ;
+$tainted = unserialize($string);
+ 
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__unserialize__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$tainted = `cat /tmp/tainted.txt`;
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__backticks__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+$handle = popen('/bin/cat /tmp/tainted.txt', 'r');
+$tainted = fread($handle, 4096);
+pclose($handle);
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__popen__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input['realOne'];
+ }
+ public function __construct(){
+ $this->input = array();
+ $this->input['test']= 'safe' ;
+ $this->input['realOne']= $_GET['UserData'] ;
+ $this->input['trap']= 'safe' ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__object-indexArray__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$string = $_POST['UserData'] ;
+$tainted = unserialize($string);
+ 
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__unserialize__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+$tainted = $_GET['UserData'];
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__GET__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+$tainted = $_POST['UserData'];
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__POST__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$tainted = $_POST['UserData'];
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__POST__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+$handle = popen('/bin/cat /tmp/tainted.txt', 'r');
+$tainted = fread($handle, 4096);
+pclose($handle);
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__popen__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$tainted = `cat /tmp/tainted.txt`;
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__backticks__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$descriptorspec = array(
+ 0 => array(""pipe"", ""r""),
+ 1 => array(""pipe"", ""w""),
+ 2 => array(""file"", ""/tmp/error-output.txt"", ""a"")
+ );
+$cwd = '/tmp';
+$process = proc_open('more /tmp/tainted.txt', $descriptorspec, $pipes, $cwd, NULL);
+if (is_resource($process)) {
+ fclose($pipes[0]);
+ $tainted = stream_get_contents($pipes[1]);
+ fclose($pipes[1]);
+ $return_value = proc_close($process);
+}
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__proc_open__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$descriptorspec = array(
+ 0 => array(""pipe"", ""r""),
+ 1 => array(""pipe"", ""w""),
+ 2 => array(""file"", ""/tmp/error-output.txt"", ""a"")
+ );
+$cwd = '/tmp';
+$process = proc_open('more /tmp/tainted.txt', $descriptorspec, $pipes, $cwd, NULL);
+if (is_resource($process)) {
+ fclose($pipes[0]);
+ $tainted = stream_get_contents($pipes[1]);
+ fclose($pipes[1]);
+ $return_value = proc_close($process);
+}
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__proc_open__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+$handle = @fopen(""/tmp/tainted.txt"", ""r"");
+if ($handle) {
+ if(($tainted = fgets($handle, 4096)) == false) {
+ $tainted = """";
+ }
+ fclose($handle);
+} else {
+ $tainted = """";
+}
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__fopen__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$array = array();
+$array[] = 'safe' ;
+$array[] = $_GET['userData'] ;
+$array[] = 'safe' ;
+$tainted = $array[1] ;
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__array-GET__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$script = ""/tmp/tainted.php"";
+exec($script, $result, $return);
+$tainted = $result[0];
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__exec__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input['realOne'];
+ }
+ public function __construct(){
+ $this->input = array();
+ $this->input['test']= 'safe' ;
+ $this->input['realOne']= $_GET['UserData'] ;
+ $this->input['trap']= 'safe' ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__object-indexArray__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input[1];
+ }
+ public function __construct(){
+ $this->input = array();
+ $this->input[0]= 'safe' ;
+ $this->input[1]= $_GET['UserData'] ;
+ $this->input[2]= 'safe' ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__object-Array__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+class Input{
+ public function getInput(){
+ return $_GET['UserData'] ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__object-directGet__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+$array = array();
+$array[] = 'safe' ;
+$array[] = $_GET['userData'] ;
+$array[] = 'safe' ;
+$tainted = $array[1] ;
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__array-GET__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+$tainted = $_GET['UserData'];
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__GET__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input;
+ }
+ public function __construct(){
+ $this->input = $_GET['UserData'] ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM COURSE WHERE id=?"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__object-classicGet__CAST-cast_int__prepared_query-no_right_verification
+"<?php
+class Input{
+ private $input;
+ public function getInput(){
+ return $this->input;
+ }
+ public function __construct(){
+ $this->input = $_GET['UserData'] ;
+ }
+}
+$temp = new Input();
+$tainted = $temp->getInput();
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__object-classicGet__CAST-cast_int__select_from_where-interpretation_simple_quote
+"<?php
+$tainted = $_SESSION['UserData'];
+$tainted = (int) $tainted ;
+//flaw
+$query = ""SELECT * FROM student where id=' $tainted '"";
+$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)
+$stmt = $conn->prepare($query);
+$stmt->bind_param(""i"", $checked_data);
+$stmt->execute();
+mysql_close($conn);
+ ?>",1,CWE_862_SQL__SESSION__CAST-cast_int__select_from_where-interpretation_simple_quote

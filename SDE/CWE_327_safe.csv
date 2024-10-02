@@ -1,0 +1,13 @@
+PHP_Code,is_vulnerable,Description
+"<?php
+//no_sanitizing
+$var = password_hash(""passwod"", PASSWORD_DEFAULT);
+?>",0,CWE_327__no_sanitizing__password_hash
+"<?php
+//no_sanitizing
+$var = crypt(""password"", ""$6$rounds=5000$usesomesillystringforsalt$"");
+?>",0,CWE_327__no_sanitizing__sha512_crypt_function
+"<?php
+//no_sanitizing
+$var = crypt(""password"", ""$5$rounds=5000$usesomesillystringforsalt$"");
+?>",0,CWE_327__no_sanitizing__sha256_crypt_function
